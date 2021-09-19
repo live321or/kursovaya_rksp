@@ -84,14 +84,11 @@ public class MainController {
 
                 for (int i = 0; i < fmessages.size(); i++) {
                     for (int b = 0; b < fmessages.get(i).getTags().size(); b++) {
-                        if (fmessages.get(i).getTags().get(b) == tagRepo.findByName(word)) {
-                            smessages.add(fmessages.get(i));
+                        if (fmessages.get(i).getTags().get(b) != tagRepo.findByName(word)) {
+                            fmessages.remove(i);
                         }
                     }
                 }
-                fmessages.clear();
-                fmessages.addAll(smessages);
-                smessages.clear();
             }
             messages = fmessages;
         } else {
