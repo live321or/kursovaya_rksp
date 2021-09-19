@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org">
+
+<body>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<div style="margin-bottom: 10px; border: 2px solid black;width: 200px;">
+    <form method="post">
+        <input type="text" name="text" placeholder="Введите сообщение"/></br>
+        <input type="text" name="tag" placeholder="Тэг"></br>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<div>Список сообщений</div>
+<div style="margin-bottom: 10px;">
+    <form method="post" action="filter">
+        <input type="text" name="filter">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <button type="submit">Найти</button>
+    </form>
+</div>
+<div style="margin-bottom: 10px; border: 1px solid black; width: 200px;" th:each="el : ${messages}">
+    <h4 style="margin: 0px;" th:text="${el.getId}"/>
+    <p style="margin: 0px;" th:text="${el.text}"/>
+    <p style="margin: 0px;" th:text="${el.getTagsStr}"/>
+    <p style="margin: 0px;" th:text="${el.getAuthorName}"/>
+</div>
+</body>
+</html>
